@@ -3,10 +3,16 @@ from django.shortcuts import render
 
 
 from blog.forms import PostCreateForm
-from blog.models import Post
+from blog.models import Post, Category
 
 
 def main_page(request):
+    categories = Category.objects.all()
+    posts = Post.objects.all()
+    context = {
+        'categories':categories,
+        'posts':posts,
+    }
     return render(request, 'blog/index.html')
 
 
@@ -29,3 +35,10 @@ def user_posts(request):
         'posts': posts
     }
     return render(request, 'blog/user_posts.html', context)
+
+def category_posts(request, pk):
+    category = Category.objects.filter(id=pk).first()
+    posts = Post.objects.filter(category=category, published=True)
+    return render(request, 'blog/category_posts.html',
+                  context={'category': category, 'posts': posts})
+
