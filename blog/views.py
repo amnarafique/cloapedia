@@ -8,10 +8,10 @@ from blog.models import Post, Category
 
 def main_page(request):
     categories = Category.objects.all()
-    posts = Post.objects.all()
+
     context = {
         'categories':categories,
-        'posts':posts,
+
     }
     return render(request, 'blog/index.html')
 
@@ -41,4 +41,30 @@ def category_posts(request, pk):
     posts = Post.objects.filter(category=category, published=True)
     return render(request, 'blog/category_posts.html',
                   context={'category': category, 'posts': posts})
+
+
+def search(request):
+    query = request.GET.get('q')
+    posts = Post.objects.filter(title__icontains=query, published=True)
+    return render(request, 'blog/search.html',
+                           context={'posts': posts})
+
+def post_detail(request, pk):
+    owner = None
+
+    post = Post.objects.filter(id=pk).first()
+
+    if request.user and request.user == post.author:
+        owner = request.user
+
+    elif request.user or not request.user:
+        post.seen_amount += 1
+        post.save()
+
+    context = {
+        'post': post,
+        'owner': owner
+    }
+
+    return  render(request, 'blog/post_detail.html', context)
 

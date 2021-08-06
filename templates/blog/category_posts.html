@@ -35,7 +35,7 @@ Ulan, [05.08.21 20:58]
                         <div class="pitem item-w1 item-h1">
                             <div class="blog-box">
                                 <div class="post-media">
-                                    <a href="#" title="">
+                                    <a href="{% url 'post_detail' post.id %}">
                                         <div class="crop">
                                             <img src="{{ post.image.url }}" alt=""
                                                  class="img-fluid post-img">
@@ -46,9 +46,9 @@ Ulan, [05.08.21 20:58]
                                     </a>
                                 </div>
                                 <div class="blog-meta">
-                                    <h4><a href="#">{{ post.title }}</a></h4>
+                                    <h4><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h4>
                                     <small><a href="#">By: {{ post.author.username }}</a></small>
-                                    <small><a href="#">{{ post.date_created }}</a></small>
+                                    <small><a href="{% url 'post_detail' post.id %}">{{ post.date_created }}</a></small>
                                 </div>
                             </div>
                         </div>

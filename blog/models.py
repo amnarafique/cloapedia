@@ -33,7 +33,7 @@ class Post(models.Model):
                                  related_name='posts', blank=True, null=True)
 
     author = models.ForeignKey(Profile, on_delete=models.SET_NULL,
-                               related_name='posts', blank=True, null=True)
+                               related_name='author_posts', blank=True, null=True)
 
     title = models.CharField(max_length=255)
     image = models.ImageField(upload_to='posts', blank=True, null=True)
