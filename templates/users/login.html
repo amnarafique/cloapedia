@@ -8,6 +8,18 @@
 {% endblock styles%}
 
 {% block content %}
+{% if messages %}
+    {% for message in messages %}
+{% if message.tags == 'success' %}
+    <div class="alert alert-success">
+{% else %}
+    <div class="alert alert-danger">
+        {% endif %}
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+
 <div class="container">
     <div class="row">
         <div class="col-8">
