@@ -7,7 +7,7 @@ def get_categories(request):
 
 
 def get_footer(request):
-    recent_posts = Post.objects.filter(published=False).order_by('-date_created')[:3]
+    recent_posts = Post.objects.filter(published=True).order_by('-date_created')[:3]
     popular_posts = Post.objects.all().order_by('-rating')[:3]
     return {
         'recent_posts': recent_posts,
